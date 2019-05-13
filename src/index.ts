@@ -4,7 +4,9 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as helmet from 'helmet';
 import * as cors from 'cors';
-import routes from './routes';
+import { authRouter } from './routes/auth';
+import { userRouter } from './routes/user';
+import { routes } from './routes/index';
 
 createConnection()
   .then(async connection => {
@@ -14,7 +16,7 @@ createConnection()
     app.use(helmet());
     app.use(bodyParser.json());
 
-    app.use('/', routes);
+    app.use('/', [authRouter, userRouter, routes]);
 
     app.listen(3000, () => {
       console.log('Server started on port 3000!');
