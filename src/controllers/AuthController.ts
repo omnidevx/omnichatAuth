@@ -64,5 +64,26 @@ class AuthController {
 
     res.status(204).send();
   };
+
+  static verify = async (req: Request, res: Response) => {
+    const token = <string>req.headers['auth'];
+    let jwtPayload;
+
+    try {
+      jwtPayload = <any>jwt.verify(token, config.jwtSecret);
+      res.locals.jwtPayload = jwtPayload;
+    } catch (error) {
+      res.status(401).send();
+      return;
+    }
+
+    const { userId, username } = jwtPayload;
+    const newToken = jwt.sign({ userId, username }, config.jwtSecret, {
+      expiresIn: '1h'
+    });
+    res.setHeader('token', newToken);
+    res.status(200).send();
+    return;
+  };
 }
 export default AuthController;

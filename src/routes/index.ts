@@ -5,4 +5,4 @@ import { userRouter } from './user';
 export const routes = Router();
 
 routes.use('/auth', authRouter);
-routes.use('/user', userRouter);
+routes.use('/users', userRouter);

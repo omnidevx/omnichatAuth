@@ -16,7 +16,7 @@ createConnection()
     app.use(helmet());
     app.use(bodyParser.json());
 
-    app.use('/', [authRouter, userRouter, routes]);
+    app.use('/', [routes]);
 
     app.listen(3000, () => {
       console.log('Server started on port 3000!');
