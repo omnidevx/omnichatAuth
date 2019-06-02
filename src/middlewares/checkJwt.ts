@@ -5,7 +5,7 @@ import config from '../config/config';
 export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
   const token = <string>req.headers['auth'];
   let jwtPayload;
-
+  console.log(res.locals);
   try {
     jwtPayload = <any>jwt.verify(token, config.jwtSecret);
     res.locals.jwtPayload = jwtPayload;
