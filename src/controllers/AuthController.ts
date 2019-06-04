@@ -8,7 +8,6 @@ import config from '../config/config';
 
 class AuthController {
   static login = async (req: Request, res: Response) => {
-    console.log('inside login');
     let { username, password } = req.body;
     if (!(username && password)) {
       res.status(400).send();
@@ -19,13 +18,11 @@ class AuthController {
     try {
       user = await userRepository.findOneOrFail({ where: { username } });
     } catch (error) {
-      console.log('couldnt find user');
       res.status(401).send();
     }
 
     if (!user.checkIfUnencryptedPasswordIsValid(password)) {
       res.status(401).send();
-      console.log('password wrong');
       return;
     }
 
