@@ -26,7 +26,7 @@ class AuthController {
       return;
     }
 
-    const token = jwt.sign({ userId: user.id, username: user.username }, config.jwtSecret, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user.id, username: user.username }, config.jwtSecret, { expiresIn: '72h' });
 
     res.send(token);
   };
